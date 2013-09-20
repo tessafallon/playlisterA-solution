@@ -32,7 +32,8 @@ def assert_equal(actual, expected)
 end
 
 # Part 1: Object Models
-
+# Create a new file called test.rb and copy paste everything from this file into that file.
+# Create a lib directory and put your other files in there.
 # Create a Class for song, artist, and genre. Use an individual file for each class.
 # These files should be placed within a lib directory and required on the top of
 # any script that utilizes them (including this test script). Once required
