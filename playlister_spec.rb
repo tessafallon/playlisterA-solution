@@ -1,12 +1,91 @@
+require_relative 'lib/artist'
+require_relative 'lib/song'
+require_relative 'lib/genre'
+require_relative 'spec_helper'
+
 describe "playlister" do
   it 'Can initialize an Artist' do
     lambda {Artist.new}.should_not raise_error
   end
 
-  it 'An artist can have a name' do
-    artist = Artist.new
-    artist.name = "Adele"
-    artist.name.should eq("Adele")
+it 'An artist can have a name' do
+  artist = Artist.new
+  artist.name = "Adele"
+  artist.name.should eq("Adele")
+end
+
+it "An artist has songs" do
+  artist = Artist.new
+  artist.songs = []
+  artist.songs.should eq([])
+end
+
+it 'The Artist class can reset the artists that have been created' do
+  assert Artist.reset_artists
+  Artist.count.should eq(0)
+end
+
+it 'The Artist class can keep track of artists as they are created' do
+  Artist.reset_artists
+  artist = Artist.new
+  Artist.all.should include(artist)
+end
+
+it 'The Artist class can count how many artists have been created' do
+  assert Artist.count
+end
+
+it 'artists have songs' do
+  artist = Artist.new
+  songs = (1..4).collect{|i| Song.new}
+  artist.songs = songs
+
+  artist.songs.should eq(songs)
+end
+
+it 'An artist can count how many songs they have' do
+  artist = Artist.new
+  songs = [Song.new, Song.new]
+  artist.songs = songs
+
+  artist.songs_count.should eq(2)
+end
+
+it 'a song can be added to an artist' do
+  artist = Artist.new
+  song = Song.new
+  artist.add_song(song)
+
+  artist.songs.should include(song)
+end
+
+it 'artists have genres' do
+  artist = Artist.new
+  song = Song.new
+
+  song.genre = Genre.new.tap{|g| g.name = "rap"}
+  artist.add_song(song)
+
+  artist.genres.should include(song.genre)
+end
+
+# Genre Specs
+it 'Can initialize a genre' do
+  lambda {Genre.new}.should_not raise_error
+end
+
+it 'A genre has a name' do
+  genre = Genre.new
+  genre.name = 'rap'
+
+  genre.name.should eq('rap')
+end
+
+it 'A genre has many songs' do
+  genre = Genre.new.tap{|g| g.name = 'rap'}
+  [1,2].each do
+    song = Song.new
+    song.genre = genre
   end
 
   it "An artist has songs" do
