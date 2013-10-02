@@ -16,7 +16,7 @@ describe "playlister" do
   end
 
   it 'The Artist class can reset the artists that have been created' do
-    assert Artist.reset_artists
+    lambda {Artist.reset_artists}.should_not raise_error
     Artist.count.should eq(0)
   end
 
@@ -27,7 +27,7 @@ describe "playlister" do
   end
 
   it 'The Artist class can count how many artists have been created' do
-    assert Artist.count
+    lambda {Artist.count}.should_not raise_error
   end
 
   it 'artists have songs' do
