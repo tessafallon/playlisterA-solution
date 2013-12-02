@@ -17,7 +17,7 @@ class Genre
   end
 
   def songs
-    @songs ||= [] #conditional: if there is already a song array, don't create a new one
+    @songs ||= [] #conditional: if there is already a song array, don't create a new one; replaces if/else/nil construct
   end
 
   def artists
